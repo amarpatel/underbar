@@ -1,4 +1,3 @@
-//test
 /*jshint eqnull:true, expr:true*/
 
 var _ = { };
@@ -9,6 +8,7 @@ var _ = { };
   // seem very useful, but remember it--if a function needs to provide an
   // iterator when the user does not pass one in, this will be handy.
   _.identity = function(val) {
+    return val;
   };
 
   /**
