@@ -100,6 +100,13 @@ var _ = { };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var results = [];
+    _.each(array,function(value,key,collection) {
+      if(collection.indexOf(value) === key) {
+        results.push(value);
+      }
+    });
+    return results;
   };
 
 
