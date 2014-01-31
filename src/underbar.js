@@ -201,8 +201,24 @@ var _ = { };
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    iterator || (iterator = _.identity);
+    if (collection.length === 0) {return false;}
+    if (_.every(collection,iterator) === true) {return true;}
+    for (var i=0;i<collection.length;i++) {
+      if (iterator(collection[i]) === true || collection[i] === 'yes') {
+        return true;
+      }
+    }
+    return false;    
   };
 
+  //Shorter way using _.every():
+  //_.some = function(collection,iterator) {
+  //  iterator || (iterator = _.identity);
+  //  return !_.every(collection,function(value){
+  //    return !iterator(value);
+  //  })
+  //};
 
   /**
    * OBJECTS
