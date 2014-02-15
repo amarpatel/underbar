@@ -195,6 +195,7 @@ var _ = { };
     },true);
     //logic: results starts at 'true' (as accumulator), and remains true as long as
     //all subsequent tests are true, else turns to false.
+    //results must be the first parameter because it takes the place of accumulator in _.reduce
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
