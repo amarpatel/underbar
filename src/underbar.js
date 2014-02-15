@@ -255,8 +255,6 @@ var _ = { };
       for (var key in arguments[i]) {
         if (obj[key] === undefined) {
           obj[key] = arguments[i][key];
-        } else if (obj[key] === arguments[i][key]) {
-          obj[key] = arguments[i][key];
         }
       }
     }
