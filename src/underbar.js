@@ -182,9 +182,7 @@ var _ = { };
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
-    if (iterator === undefined) {
-      iterator = _.identity;
-    }
+    iterator || (iterator = _.identity);
     //gave iterator identity function if no function is found.
     return _.reduce(collection,function(results, value) {
       return (results && iterator(value)) ? true : false;
@@ -199,14 +197,20 @@ var _ = { };
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
     iterator || (iterator = _.identity);
-    if (collection.length === 0) {return false;}
-    if (_.every(collection,iterator) === true) {return true;}
-    for (var i=0;i<collection.length;i++) {
-      if (iterator(collection[i]) === true || collection[i] === 'yes') {
-        return true;
-      }
+    if (collection.length === 0) {
+      return false;
     }
-    return false;    
+    else if (_.every(collection,iterator) === true) {
+      return true;
+    }
+    else {
+      for (var i=0;i<collection.length;i++) {
+        if (iterator(collection[i]) === true || collection[i] === 'yes') {
+          return true;
+        }
+      }
+      return false;  
+    }
   };
 
   //Shorter way using _.every():
@@ -235,13 +239,21 @@ var _ = { };
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
-  _.extend = function(obj) {
-    for (var i=0;i<arguments.length;i++) {
-      for (var key in arguments[i]) {
-        obj[key] = arguments[i][key];
-      }
+_.extend = function(obj) {
+  for (var i=0;i<arguments.length;i++) {
+    for (var key in arguments[i]) {
+      obj[key] = arguments[i][key];
     }
-    return obj;
+  }
+  return obj;
+
+  // Using _.each:
+  // _.each(arguments,function(val1,key1,col1){
+  //   _.each(val1,function(val2,key2,col2){
+  //     obj[key2] = col2[key2];
+  //   })
+  // })
+  // return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
