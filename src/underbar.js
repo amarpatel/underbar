@@ -94,7 +94,7 @@ var _ = { };
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
     return _.filter(collection, function(value){
-        return !test.call(collection,value);
+        return !test(value);
     });
   };
 
@@ -145,6 +145,8 @@ var _ = { };
       return _.map(collection,function(value){return value[functionOrKey].apply(value,args)});
     }
   };
+  //The reason why value[functionOrKey] works is because it's analagous to value.functionOrKey,
+  //since it's an inherent object prototype.
 
   // Reduces an array or object to a single value by repetitively calling
   // iterator(previousValue, item) for each item. previousValue should be
