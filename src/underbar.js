@@ -310,12 +310,14 @@ _.extend = function(obj) {
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    var memo = {}, hasher;
-    (arguments[length-1] === undefined) ? hasher = _.identity : hasher = arguments[1];
-    return function() {
-      var key = hasher.apply(this,arguments);
-      return Object.prototype.hasOwnProperty.call(memo,key) ? memo[key] : (memo[key] = func.apply(this, arguments));
-    };
+    var memo = {}, memArgs = arguments;
+    return function(){
+      var anArgs = arguments;
+      if(!memo[anArgs]) {
+        memo[anArgs] = func.apply(null, anArgs);
+      }
+      return memo[anArgs];
+    }
   };
 
   // Delays a function for the given number of milliseconds, and then calls
